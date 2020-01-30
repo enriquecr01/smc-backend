@@ -1,0 +1,81 @@
+Los datos se guardan en mongodb, la base de datos se llama smc y los datos se esctructuran de la siguiente manera
+
+car - collection
+{
+    "_id" : ObjectId("5e1e56dfa5942c54d8900916"),
+    "enrollNumber" : "0316112265",
+    "name" : "Enrique",
+    "lastnames" : "Chavez R.",
+    "university" : "UTT",
+    "car" : "5e1e59b3a5942c54d8900918",
+    "city" : "Tecate",
+    "photo" : "e.jpg",
+    "password" : "123456789",
+    "phone" : "6659876541",
+    "raiting" : "5",
+    "latitude" : 32.321456,
+    "longitude" : -116.231598
+}
+
+universities - collection 
+{
+    "_id" : ObjectId("5e1e58e4a5942c54d8900917"),
+    "acronym" : "UTT",
+    "name" : "Universidad Tecnologica de Tijuana",
+    "latitude" : "32.321654",
+    "longitude" : "-116.987654"
+}
+
+students - collection 
+{
+    "_id" : ObjectId("5e1e56dfa5942c54d8900916"),
+    "enrollNumber" : "0316112265",
+    "name" : "Enrique",
+    "lastnames" : "Chavez R.",
+    "university" : "UTT",
+    "car" : "5e1e59b3a5942c54d8900918",
+    "city" : "Tecate",
+    "photo" : "e.jpg",
+    "password" : "123456789",
+    "phone" : "6659876541",
+    "raiting" : "5",
+    "latitude" : 32.321456,
+    "longitude" : -116.231598
+}
+
+
+Query de ejemplo 
+{
+  Students {
+    name
+    lastnames
+    university {
+      _id
+      acronym
+      name
+      latitude
+      longitude
+    }
+    car {
+      _id
+      model
+    }
+  }
+}
+
+Mutation de ejemplo 
+mutation {
+  createUniversity(input: {
+    acronym: "UABC", 
+    name: "Universidad Autonoma de Baja California",
+ 		latitude: 32.531302, 
+    longitude: -116.966465}) 
+  {
+    _id
+    name
+    latitude
+    longitude
+  }
+}
+
+https://medium.com/the-ideal-system/graphql-and-mongodb-a-quick-example-34643e637e49

@@ -1,0 +1,67 @@
+type Query {
+    # Users: [User]
+    Universities: [University]
+    Students: [Student]
+}
+
+type Mutation {
+    createUniversity(input: UniversityInput!): University
+    # deleteUser(_id: ID): User
+    # updateUser(_id: ID, input: UserInput): User
+}
+
+type Student {
+    _id: ID
+    enrollNumber: String!
+    name: String!
+    lastnames: String!
+    university: University!
+    car: Car
+    city: String!
+    photo: String!
+    password: String!
+    phone: String!
+    raiting: Int!
+    latitude: Float!
+    longitude: Float!
+}
+
+type Car {
+    _id: ID
+    brand: String!
+    model: String!
+    license: String!
+    color: String!
+    year: Int
+    spaceInCar: Int
+    status: Int
+    plates: String
+}
+
+type University {
+    _id: ID!
+    acronym: String!
+    name: String!
+    latitude: Float!
+    longitude: Float!
+}
+
+input UniversityInput {
+    acronym: String!
+    name: String!
+    latitude: Float!
+    longitude: Float!
+}
+
+# type User {
+#     _id: ID
+#     firstname: String!
+#     lastname: String!
+#     age: Int!
+# }
+
+# input UserInput {
+#     firstname: String!
+#     lastname: String!
+#     age: Int!
+# }
