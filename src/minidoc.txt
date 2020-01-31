@@ -78,4 +78,51 @@ mutation {
   }
 }
 
+Crear studiante ejemplo
+mutation {
+  createStudent(input: {
+    enrollNumber: "0316325987",
+    name: "Somebody",
+    lastnames: "Once",
+    university: "UABC",
+    car: "000000000000000000000000",
+    city: "Tijuana",
+    password: "123456"
+    phone: "664-654-1425"
+    latitude: 32.531702,
+    longitude: -117.024754}) 
+  {
+    _id
+    name
+    car {
+      _id
+      year
+      spaceInCar
+      status
+      plates
+    }
+    raiting
+    photo
+  }
+}
+
+Crear un carro
+mutation {
+  createCar(input: {
+    brand: "Honda", 
+    model: "Civic", 
+    license: "2131312", 
+    color: "Cafe", 
+    year: 1998, 
+    spaceInCar: 3, 
+    status: 1, 
+    plates: "32132"}) {
+    _id
+    model
+  }
+}
+
+
+
+
 https://medium.com/the-ideal-system/graphql-and-mongodb-a-quick-example-34643e637e49

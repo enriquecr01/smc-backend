@@ -6,6 +6,8 @@ type Query {
 
 type Mutation {
     createUniversity(input: UniversityInput!): University
+    createStudent(input: StudentInput!): Student
+    createCar(input: CarInput!): Car
     # deleteUser(_id: ID): User
     # updateUser(_id: ID, input: UserInput): User
 }
@@ -26,6 +28,19 @@ type Student {
     longitude: Float!
 }
 
+input StudentInput {
+    enrollNumber: String!
+    name: String!
+    lastnames: String!
+    university: String!
+    city: String!
+    car: ID!
+    password: String!
+    phone: String!
+    latitude: Float!
+    longitude: Float!
+}
+
 type Car {
     _id: ID
     brand: String!
@@ -36,6 +51,17 @@ type Car {
     spaceInCar: Int
     status: Int
     plates: String
+}
+
+input CarInput {
+    brand: String!
+    model: String!
+    license: String!
+    color: String!
+    year: Int!
+    spaceInCar: Int!
+    status: Int!
+    plates: String!
 }
 
 type University {
