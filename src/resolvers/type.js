@@ -8,8 +8,13 @@ export const type = {
             return (await University.findOne({ acronym: university }));
         },
         car: async({ car }) => {
-            console.log(car);
             return (await Car.findById(car));
         }
     },
+    Spot: {
+        driver: async({ driver }) => {
+            console.log(driver);
+            return (await Student.findById(driver));
+        }
+    }
 }

@@ -1,13 +1,15 @@
 type Query {
-    # Users: [User]
     Universities: [University]
     Students: [Student]
+    Cars: [Car]
+    Spots: [Spot]
 }
 
 type Mutation {
     createUniversity(input: UniversityInput!): University
     createStudent(input: StudentInput!): Student
     createCar(input: CarInput!): Car
+    createSpot(input: SpotInput!): Spot
     # deleteUser(_id: ID): User
     # updateUser(_id: ID, input: UserInput): User
 }
@@ -21,18 +23,19 @@ type Student {
     car: Car
     city: String!
     photo: String!
-    password: String!
+    password: String
     phone: String!
     raiting: Int!
     latitude: Float!
     longitude: Float!
+    status: Int!
 }
 
 input StudentInput {
     enrollNumber: String!
     name: String!
     lastnames: String!
-    university: String!
+    university: ID!
     city: String!
     car: ID!
     password: String!
@@ -79,15 +82,22 @@ input UniversityInput {
     longitude: Float!
 }
 
-# type User {
-#     _id: ID
-#     firstname: String!
-#     lastname: String!
-#     age: Int!
-# }
+type Spot {
+    _id: ID!
+    driver: Student!
+    latitude: Float!
+    longitude: Float!
+    price: Float!
+    hour: String!
+    day: Int!
+    status: Int!
+}
 
-# input UserInput {
-#     firstname: String!
-#     lastname: String!
-#     age: Int!
-# }
+input SpotInput {
+    driver: String!
+    latitude: Float!
+    longitude: Float!
+    price: Float!
+    hour: String!
+    day: Int!
+}

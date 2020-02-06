@@ -12,7 +12,8 @@ const studentSchema = new Schema({
     phone: String,
     raiting: Number,
     latitude: Number,
-    longitude: Number
+    longitude: Number,
+    status: Number
 });
 
 

@@ -84,7 +84,7 @@ mutation {
     enrollNumber: "0316325987",
     name: "Somebody",
     lastnames: "Once",
-    university: "UABC",
+    university: "5e3351b53f11b348885f12c7",
     car: "000000000000000000000000",
     city: "Tijuana",
     password: "123456"
@@ -123,6 +123,25 @@ mutation {
 }
 
 
+Crear un punto de encuentro
+mutation {
+  createSpot(input: {
+    driver: "5e1e56dfa5942c54d8900916",
+  	latitude: 32.529821,
+  	longitude: -117.023595,
+  	price: 100,
+  	hour: "01:00",
+  	day: 0}) {
+    _id
+    driver {
+      name
+      car {
+        model
+        brand
+      }
+    }
+  }
+}
 
 
 https://medium.com/the-ideal-system/graphql-and-mongodb-a-quick-example-34643e637e49
