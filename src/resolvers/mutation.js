@@ -2,6 +2,7 @@ import University from './../models/University';
 import Student from './../models/Student';
 import Car from './../models/Car';
 import Spot from './../models/Spot';
+import Ride from './../models/Ride';
 
 export const mutation = {
     Mutation: {
@@ -11,7 +12,7 @@ export const mutation = {
             return newUniversity;
         },
         async createStudent(__, { input }) {
-            const defaultValues = { raiting: 5, photo: 'default.png', status: 0 };
+            const defaultValues = { raiting: 5, photo: 'default.png', status: 1 };
             input = {
                 ...input,
                 ...defaultValues
@@ -33,7 +34,7 @@ export const mutation = {
                 return {...emptyStudent, name: "The university doesn't exists" }
             }
 
-            if (input.car !== '000000000000000000000000') {
+            if (input.car) {
                 const car = (await Car.findById(input.car));
                 if (car === null) {
                     return {...emptyStudent, name: "The Car doesn't exists" }
@@ -72,6 +73,24 @@ export const mutation = {
                 const newSpot = new Spot(input);
                 await newSpot.save();
                 return newSpot;
+            }
+        },
+        async createRide(__, { input }) {
+            const defaultValues = { status: 3 };
+            const emptyRide = {
+                spot: null,
+                passenger: null,
+                status: 4
+            };
+            const passenger = (await Student.findById(input.passenger));
+            const spot = (await Spot.findById(input.spot));
+            if (passenger === null || spot === null) {
+                return {...emptyRide, ...defaultValues };
+            } else {
+                input = {...input, ...defaultValues };
+                const newRide = new Ride(input);
+                await newRide.save();
+                return newRide;
             }
         }
         // async deleteUser(__, { _id }) {

@@ -6,6 +6,7 @@ const spotSchema = new Schema({
     longitude: Number,
     price: Number,
     hour: String,
+    passengers: [String],
     day: Number,
     status: Number,
 });

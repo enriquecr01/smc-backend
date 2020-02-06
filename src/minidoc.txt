@@ -145,3 +145,82 @@ mutation {
 
 
 https://medium.com/the-ideal-system/graphql-and-mongodb-a-quick-example-34643e637e49
+
+-- Definicion de status en rides
+0 = Cancelado
+1 = Terminado y evaluado
+2 = Terminado sin evaluar
+3 = En curso
+4 = No se pudo crear <- Este valor no se almacena es una bandera
+
+-- Definicion de los dias en Spots
+0 = Lunes
+1 = Martes
+2 = Miercoles
+3 = Jueves
+4 = Viernes
+5 = Sabado
+
+
+Codigos de prueba
+https://stackoverflow.com/questions/51819224/how-to-find-nearest-location-using-latitude-and-longitude-from-a-json-data
+---- Saber que puntos estan mas cerca 
+// Get User's Coordinate from their Browser
+window.onload = function() {
+  // HTML5/W3C Geolocation
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(UserLocation);
+  }
+  // Default to Washington, DC
+  else
+    NearestCity(38.8951, -77.0367);
+}
+
+// Callback function for asynchronous call to HTML5 geolocation
+function UserLocation(position) {
+  NearestCity(position.coords.latitude, position.coords.longitude);
+}
+
+
+// Convert Degress to Radians
+function Deg2Rad(deg) {
+  return deg * Math.PI / 180;
+}
+
+function PythagorasEquirectangular(lat1, lon1, lat2, lon2) {
+  lat1 = Deg2Rad(lat1);
+  lat2 = Deg2Rad(lat2);
+  lon1 = Deg2Rad(lon1);
+  lon2 = Deg2Rad(lon2);
+  var R = 6371; // km
+  var x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
+  var y = (lat2 - lat1);
+  var d = Math.sqrt(x * x + y * y) * R;
+  return d;
+}
+
+var lat = 20; // user's latitude
+var lon = 40; // user's longitude
+
+var cities = [
+  ["Rosarito", 32.366148, -117.059464, "blah"],
+  ["Tecate", 32.563168, -116.624831, "blah"],
+  ["Ensenada", 31.867388, -116.593121, "blah"],
+  ["Tijuana", 32.515849, -117.035013, "blah"]
+];
+
+function NearestCity(latitude, longitude) {
+  var minDif = 99999;
+  var closest;
+
+  for (index = 0; index < cities.length; ++index) {
+    var dif = PythagorasEquirectangular(latitude, longitude, cities[index][1], cities[index][2]);
+    if (dif < minDif) {
+      closest = index;
+      minDif = dif;
+    }
+  }
+
+  // echo the nearest city
+  alert(cities[closest]);
+}
