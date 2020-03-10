@@ -1,11 +1,18 @@
+import bcrypt from 'bcrypt';
+
 import University from './../models/University';
 import Student from './../models/Student';
 import Car from './../models/Car';
 import Spot from './../models/Spot';
 import Ride from './../models/Ride';
 
+import auth from './../auth';
+
 export const mutation = {
     Mutation: {
+        async login(__, {enrollNumber, password}, {SECRET}) {
+            return auth.login(enrollNumber, password, SECRET);
+        },
         async createUniversity(__, { input }) {
             const newUniversity = new University(input);
             await newUniversity.save();
@@ -13,6 +20,7 @@ export const mutation = {
         },
         async createStudent(__, { input }) {
             const defaultValues = { raiting: 5, photo: 'default.png', status: 1 };
+            input.password = await bcrypt.hash(input.password, 10);
             input = {
                 ...input,
                 ...defaultValues
@@ -30,6 +38,7 @@ export const mutation = {
                 ...defaultValues
             };
             const university = (await University.findById(input.university));
+
             if (university === null) {
                 return {...emptyStudent, name: "The university doesn't exists" }
             }

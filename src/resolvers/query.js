@@ -9,8 +9,9 @@ export const query = {
         async Universities() {
             return await University.find();
         },
-        async Students() {
-            return await Student.find();
+        async Students(__, args, { user }) {
+            if (!user.length) { throw new Error("No autenticado"); }
+            else { return await Student.find(); }
         },
         async Cars() {
             return await Car.find();

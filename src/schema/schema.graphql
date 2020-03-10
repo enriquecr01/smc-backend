@@ -14,6 +14,7 @@ type Mutation {
     createCar(input: CarInput!): Car
     createSpot(input: SpotInput!): Spot
     createRide(input: RideInput!): Ride
+    login(enrollNumber: String!, password: String!): Response
     # deleteUser(_id: ID): User
     # updateUser(_id: ID, input: UserInput): User
 }
@@ -127,4 +128,10 @@ input RideInput {
     calificationPassenger: Int,
     calificationDriver: Int,
     status: Int
+}
+
+type Response {
+    success: Boolean
+    token: String
+    errors: [String]
 }

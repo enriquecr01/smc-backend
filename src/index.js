@@ -2,9 +2,14 @@ import express from "express";
 import graphqlHTTP from "express-graphql";
 import schema from './schema/schema';
 
+import auth from './auth';
+
 import { connect } from './database/database';
 
+import "dotenv/config";
+
 const app = express();
+const SECRET = "SMC";
 connect();
 
 app.get('/', (req, res) => {
@@ -13,12 +18,17 @@ app.get('/', (req, res) => {
     })
 });
 
-app.use('/graphql', graphqlHTTP({
-    graphiql: true,
-    schema: schema,
-    context: {
-        messageId: 'test'
+app.use(auth.checkHeaders);
+
+app.use('/graphql', graphqlHTTP((req) => {
+    return {
+        graphiql: true,
+        schema: schema,
+        context: {
+            SECRET: process.env.SECRET,
+            user: req.user
+        }
     }
 }))
 
-app.listen(3000, () => console.log("Example"));
+app.listen(process.env.PORT, () => console.log("Example"));

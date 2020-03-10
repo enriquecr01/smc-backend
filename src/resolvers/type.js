@@ -6,7 +6,7 @@ import Spot from '../models/Spot';
 export const type = {
     Student: {
         university: async({ university }) => {
-            return (await University.findOne({ acronym: university }));
+            return (await University.findById(university));
         },
         car: async({ car }) => {
             return (await Car.findById(car));
