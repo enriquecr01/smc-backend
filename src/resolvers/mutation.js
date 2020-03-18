@@ -66,14 +66,16 @@ export const mutation = {
         },
         async createSpot(__, { input }) {
             const driver = (await Student.findById(input.driver));
-            const defaultValues = { status: 0 };
+            const car = await Car.findById(driver.car);
+            const defaultValues = { status: 0, availableSpace: car.spaceInCar };
             const emptySpot = {
                 driver: "The driver doesn't not exists",
                 latitude: 32.529821,
                 longitude: -117.023595,
                 price: 0,
                 hour: "00:00",
-                day: 0
+                day: 0,
+                availableSpace: 0
             };
             if (driver === null) {
                 return {...emptySpot, ...defaultValues };

@@ -10,7 +10,7 @@ export const query = {
             return await University.find();
         },
         async Students(__, args, { user }) {
-            if (!user.length) { throw new Error("No autenticado"); }
+            if (user.length === 0) { throw new Error("No autenticado"); }
             else { return await Student.find(); }
         },
         async Cars() {

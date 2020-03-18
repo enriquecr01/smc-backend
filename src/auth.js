@@ -14,12 +14,12 @@ const auth = {
                 req.user = userId;
             } catch(e) {
                 // Invalid Token
-                const newToken = await auth.checkToken(token, process.env.SECRET);
-                req.user = newToken;
-
+                const newToken = await auth.checkToken(token);
+                req.user = newToken.user;
+                
                 if (newToken.token) {
                     res.set("Access-Control-Expose-Headers", "x-token");
-                    res.set("x-token", newToken.token)
+                    res.set("x-token", newToken.token);
                 }
             }
         }
@@ -32,11 +32,18 @@ const auth = {
             const { userId } = await jwt.decode(token);
             idUser = userId;
         } catch (e) {
-            return {};
+            return { user: '' };
         }
 
         const user = await Student.findOne({ _id: idUser });
-        const newToken = auth.getToken(user);
+
+        let isDriver = false;
+
+        if (user.car) {
+            isDriver = true;
+        }
+
+        const newToken = auth.getToken(user, isDriver);
 
         return {
             user: user._id,
@@ -44,8 +51,8 @@ const auth = {
         }
 
     },
-    getToken: ({_id}) => {
-        const token = jwt.sign({userId: _id}, process.env.SECRET, { expiresIn: '1h'});
+    getToken: ({_id}, isDriver) => {
+        const token = jwt.sign({userId: _id, isDriver: isDriver}, process.env.SECRET, { expiresIn: '1h'});
 
         return token;
     },
@@ -68,11 +75,19 @@ const auth = {
             }
         }
 
-        const token = auth.getToken(student);
+        let isDriver = false;
+        
+        if (student.car) {
+            isDriver = true;
+        }
+
+        const token = auth.getToken(student, isDriver);
 
         return {
             success: true,
             token: token,
+            isDriver,
+            user: student,
             errors: []
         }
     }

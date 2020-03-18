@@ -96,6 +96,7 @@ type Spot {
     hour: String!
     day: Int!
     passengers: [Student]
+    availableSpace: Int
     status: Int!
 }
 
@@ -134,4 +135,6 @@ type Response {
     success: Boolean
     token: String
     errors: [String]
+    isDriver: Boolean
+    user: Student
 }
