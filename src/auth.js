@@ -66,9 +66,9 @@ const auth = {
             }
         }
 
-        const validPassword = await bcrypt.compare(password, student.password);
+        // const validPassword = await bcrypt.compare(password, student.password);
 
-        if (!validPassword) {
+        if (bcrypt.compareSync(password, student.password)) {
             return {
                 success: false,
                 errors: ["The password is invalid"]

@@ -6,6 +6,7 @@ const studentSchema = new Schema({
     lastnames: String,
     university: String,
     car: String,
+    spots: [String],
     city: String,
     photo: String,
     password: String,

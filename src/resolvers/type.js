@@ -10,6 +10,14 @@ export const type = {
         },
         car: async({ car }) => {
             return (await Car.findById(car));
+        },
+        spots: async({ spots }) => {
+            const arrSpots = [];
+            for (const spotId of spots) {
+                const spot = await Spot.findById(spotId);
+                arrSpots.push(spot);
+            }
+            return arrSpots;
         }
     },
     Spot: {

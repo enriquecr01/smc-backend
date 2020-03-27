@@ -20,7 +20,7 @@ export const mutation = {
         },
         async createStudent(__, { input }) {
             const defaultValues = { raiting: 5, photo: 'default.png', status: 1 };
-            input.password = await bcrypt.hash(input.password, 10);
+            input.password = bcrypt.hashSync(input.password, 10);
             input = {
                 ...input,
                 ...defaultValues
@@ -53,6 +53,7 @@ export const mutation = {
                     return newStudent;
                 }
             } else {
+                input = { ...input, spots: [] };
                 const newStudent = new Student(input);
                 await newStudent.save();
                 return newStudent;

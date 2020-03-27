@@ -1,5 +1,6 @@
 type Query {
     Universities: [University]
+    Student(idStudent: ID!): Student
     Students: [Student]
     Cars: [Car]
     Spots: [Spot]
@@ -26,6 +27,7 @@ type Student {
     lastnames: String!
     university: University!
     car: Car
+    spots: [Spot]
     city: String!
     photo: String!
     password: String

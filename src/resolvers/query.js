@@ -9,6 +9,10 @@ export const query = {
         async Universities() {
             return await University.find();
         },
+        async Student(__, { idStudent }, { user }) {
+            if (user.length === 0) { throw new Error("No autenticado"); }
+            else { return await Student.findById(idStudent); }
+        },
         async Students(__, args, { user }) {
             if (user.length === 0) { throw new Error("No autenticado"); }
             else { return await Student.find(); }

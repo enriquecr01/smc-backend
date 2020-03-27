@@ -8,6 +8,7 @@ const spotSchema = new Schema({
     hour: String,
     passengers: [String],
     day: Number,
+    availableSpace: Number,
     status: Number,
 });
 
