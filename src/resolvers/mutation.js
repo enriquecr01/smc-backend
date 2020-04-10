@@ -104,7 +104,13 @@ export const mutation = {
                 await newRide.save();
                 return newRide;
             }
-        }
+        },
+        async updateSpot(__, { _id, input }) {
+            return await Spot.findByIdAndUpdate(_id, input, { new: true });
+        },
+        async deleteSpot(__, { _id }) {
+            return await Spot.findByIdAndUpdate(_id, { status: 1 });
+        },
         // async deleteUser(__, { _id }) {
         //     return await User.findByIdAndDelete(_id);
         // },

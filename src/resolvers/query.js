@@ -30,13 +30,13 @@ export const query = {
             const spots = [];
             const students = await Student.find({ city: city, university: university });
             for (const student of students) {
-                const spotsStudent = await Spot.find({ driver: student._id, day: day });
+                const spotsStudent = await Spot.find({ driver: student._id, day: day, status: 0 });
                 for (const spot of spotsStudent) { spots.push(spot); }
             }
             return spots;
         },
         async SpotsByDriverAndDay(__, { driver, day }) {
-            return await Spot.find({ driver: driver, day: day });
+            return await Spot.find({ driver: driver, day: day, status: 0 });
         }
     }
 }

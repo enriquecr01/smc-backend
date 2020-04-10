@@ -16,6 +16,8 @@ type Mutation {
     createSpot(input: SpotInput!): Spot
     createRide(input: RideInput!): Ride
     login(enrollNumber: String!, password: String!): Response
+    updateSpot(_id: ID, input: SpotInput): Spot
+    deleteSpot(_id: ID): Spot
     # deleteUser(_id: ID): User
     # updateUser(_id: ID, input: UserInput): User
 }
