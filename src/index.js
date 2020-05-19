@@ -1,6 +1,7 @@
 import express from "express";
 import graphqlHTTP from "express-graphql";
 import schema from './schema/schema';
+import cors from 'cors';
 
 import auth from './auth';
 
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
     })
 });
 
+app.use(cors());
 app.use(auth.checkHeaders);
 
 app.use('/graphql', graphqlHTTP((req) => {
